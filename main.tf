@@ -19,3 +19,17 @@ tags = {
 Name = "student.3-vm1"
 }
 }
+
+
+module "loadbalancer" {
+source = "./modules/linux_node"
+ami = var.ami
+instance_count = "0"
+instance_type = var.instance_type
+key_name = data.terraform_remote_state.network_details.outputs.key_name
+subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
+vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
+tags = {
+Name = "student.3-loadbalancer-vm"
+}
+}
