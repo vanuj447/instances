@@ -13,3 +13,10 @@ variable "ami" {
 variable "instance_type" {
   default = "t3.micro"
 }
+
+variable "webserver_prefix" {
+default = "student.3-webserver-vm"
+}
+variable "loadbalancer_prefix" {
+default = "student.3-loadbalancer-vm"
+}

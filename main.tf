@@ -16,8 +16,10 @@ key_name = data.terraform_remote_state.network_details.outputs.key_name
 subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
 vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
 tags = {
-Name = "student.3-vm1"
+Name = var.webserver_prefix
 }
+install_package = "webservers"
+playbook_name = "apache-install.yaml"
 }
 
 
@@ -30,6 +32,8 @@ key_name = data.terraform_remote_state.network_details.outputs.key_name
 subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
 vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
 tags = {
-Name = "student.3-loadbalancer-vm"
+Name = var.loadbalancer_prefix
 }
+install_package = ""
+playbook_name = ""
 }
