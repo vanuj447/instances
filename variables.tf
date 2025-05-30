@@ -1,6 +1,7 @@
-variable "region"{
+variable "region" {
    default = "us-east-1"
 }
 
-variable "profile:{
+variable "profile" {
    default = "student.3"
+}
