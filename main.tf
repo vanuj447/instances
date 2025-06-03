@@ -23,7 +23,7 @@ playbook_name = "apache-install.yml"
 }
 
 
-module "loadbalancer" {
+module "web_docker_host" {
 source = "./modules/linux_node"
 ami = var.ami
 instance_count = "1"
@@ -32,9 +32,8 @@ key_name = data.terraform_remote_state.network_details.outputs.key_name
 subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
 vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
 tags = {
-Name = var.loadbalancer_prefix
+Name = var.web_docker_host_prefix
 }
-install_package = "loadbalancer"
-playbook_name = "install-ha-proxy.yaml"
-depends_on = [module.webserver]
+install_package = "dockerhost"
+playbook_name = "install-docker.yaml"
 }
