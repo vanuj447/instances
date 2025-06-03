@@ -43,19 +43,10 @@ create_duration = "30s"
 
 resource "null_resource" "install_package" {
   count = length(aws_instance.my_vm) > 0 ? 1 : 0
+  depends_on = [time_sleep.wait_30_seconds]
 
   provisioner "local-exec" {
-    command = <<EOT
-      ANSIBLE_HOST_KEY_CHECKING=False \
-      ansible-playbook \
-        -u ubuntu \
-        -i ./tf_ansible_${var.install_package}_inventory.ini \
-        -i ./tf_ansible_webservers_inventory.ini \
-        /home/anuj/terraform_base/ansible_playbooks/${var.playbook_name} \
-        --private-key ../keys/student.3-vm-key
-    EOT
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i ./tf_ansible_${var.install_package}_inventory.ini -i ./tf_ansible_webservers_inventory.ini -i ./tf_ansible_dockerhost_inventory.ini /home/anuj/terraform_base/ansible_playbooks/${var.playbook_name} --private-key '../keys/student.3-vm-key'"
   }
-
-  depends_on = [aws_instance.my_vm]
 }
 
