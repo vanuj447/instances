@@ -48,12 +48,14 @@ resource "null_resource" "install_package" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ansible-playbook \
-        -u root \
+        -u ubuntu \
+        -i ./tf_ansible_${var.install_package}_inventory.ini \
         -i ./tf_ansible_webservers_inventory.ini \
-        /home/anuj/terraform_base/ansible_playbooks/apache-install.yml \
+        /home/anuj/terraform_base/ansible_playbooks/${var.playbook_name} \
         --private-key ../keys/student.3-vm-key
     EOT
   }
 
   depends_on = [aws_instance.my_vm]
 }
+
